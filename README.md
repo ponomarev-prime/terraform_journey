@@ -30,13 +30,20 @@ terraform destroy
 terraform output
 ```
 
+privat.tfvars
+
+```txt
+# must be an absolute path
+host_path = "/xxx/xxx/dev666/public/index.html"
+```
+
 ## NO-Tutorial
 
 Для создания локального кластера Kubernetes с использованием Terraform вы можете воспользоваться инструментами, такими как Minikube или Kind (Kubernetes in Docker).
 
 Вот пример создания кластера Kubernetes с помощью Terraform и Kind:
 
-1. Установите Terraform, Kind и Docker, если у вас их еще нет.
+1. Установите Terraform, [Kind](https://kind.sigs.k8s.io/) и Docker, если у вас их еще нет.
 2. Создайте файл main.tf для конфигурации Terraform:
 
 `main.tf`
