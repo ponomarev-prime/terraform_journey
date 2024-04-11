@@ -1,17 +1,25 @@
-# main.tf
-
-provider "local" {}
-
-resource "null_resource" "create_cluster" {
-  provisioner "local-exec" {
-    command = "kind create cluster --config=kind-config.yaml"
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 3.0.1"
+    }
   }
 }
 
-resource "null_resource" "configure_kubectl" {
-  depends_on = [null_resource.create_cluster]
+provider "docker" {}
 
-  provisioner "local-exec" {
-    command = "kind get kubeconfig --name=kind > kubeconfig"
+resource "docker_image" "nginx" {
+  name         = "nginx:latest"
+  keep_locally = false
+}
+
+resource "docker_container" "nginx" {
+  image = docker_image.nginx.image_id
+  name  = "tutorial"
+
+  ports {
+    internal = 80
+    external = 8000
   }
 }
